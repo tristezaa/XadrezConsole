@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace XadrezConsole.Board
+﻿namespace XadrezConsole.Board
 {
     internal class Position
     {

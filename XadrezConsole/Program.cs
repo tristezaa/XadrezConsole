@@ -1,7 +1,5 @@
 ﻿using XadrezConsole.Board;
 
-Position p;
+Board tab;
 
-p = new Position(3,4);
-
-Console.WriteLine("Position: " + p);
+tab = new Board(8, 8);
