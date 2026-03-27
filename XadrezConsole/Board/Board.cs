@@ -1,4 +1,4 @@
-﻿namespace XadrezConsole.Board
+﻿namespace XadrezConsole.board
 {
     internal class Board
     {
@@ -12,6 +12,11 @@
             this.lines = lines;
             this.columns = columns;
             pieces = new Piece[lines, columns];
+        }
+
+        public Piece piece(int line, int column)
+        {
+            return pieces[line, column];
         }
     }
 }

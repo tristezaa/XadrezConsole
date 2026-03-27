@@ -1,5 +1,6 @@
-﻿using XadrezConsole.Board;
+﻿using XadrezConsole.board;
+using XadrezConsole;
 
-Board tab;
+Board board = new Board(8, 8);
 
-tab = new Board(8, 8);
+Screen.PrintBoard(board);
