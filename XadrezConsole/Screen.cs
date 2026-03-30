@@ -1,4 +1,5 @@
-﻿using XadrezConsole.board;
+﻿using System;
+using XadrezConsole.board;
 
 namespace XadrezConsole
 {
