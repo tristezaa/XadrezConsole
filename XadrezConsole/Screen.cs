@@ -1,24 +1,24 @@
-﻿using System;
-using XadrezConsole.board;
+﻿using XadrezConsole.board;
+using XadrezConsole.chess;
 
 namespace XadrezConsole
 {
     internal class Screen
     {
-        public static void printBoard(Board board)
+        public static void PrintBoard(Board board)
         {
             for (int i = 0; i < board.lines; i++)
             {
                 Console.Write(8 - i + " ");
                 for (int j = 0; j < board.columns; j++)
                 {
-                    if (board.piece(i, j) == null)
+                    if (board.Piece(i, j) == null)
                     {
                         Console.Write("- ");
                     }
                     else
                     {
-                        printPiece(board.piece(i, j));
+                        PrintPiece(board.Piece(i, j));
                         Console.Write(" ");
                     }
                 }
@@ -26,7 +26,15 @@ namespace XadrezConsole
             }
             Console.WriteLine("  a b c d e f g h");
         }
-        public static void printPiece(Piece piece)
+
+        public static PositionChess ReadChessPosition()
+        {
+            string s = Console.ReadLine();
+            char column = s[0];
+            int line = int.Parse(s[1] + "");
+            return new PositionChess(column, line);
+        }
+        public static void PrintPiece(Piece piece)
         {
             if (piece.color == Color.White)
             {

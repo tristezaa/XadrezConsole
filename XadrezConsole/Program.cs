@@ -3,21 +3,23 @@ using XadrezConsole;
 using XadrezConsole.chess;
 try
 {
-    Board board = new Board(8, 8);
+    ChessMatch chessMatch = new ChessMatch();
 
-    board.placePiece(new Rook(board, Color.Black), new Position(0, 0));
-    board.placePiece(new Rook(board, Color.Black), new Position(1, 3));
-    board.placePiece(new King(board, Color.White), new Position(1, 1));
+    while (!chessMatch.finished)
+    {
+        Console.Clear();
+        Screen.PrintBoard(chessMatch.board);
 
-    Screen.printBoard(board);
+        Console.Write("Enter the origin position: ");
+        Position origin = Screen.ReadChessPosition().ToPosition();
+        Console.Write("Enter the destination position: ");
+        Position destination = Screen.ReadChessPosition().ToPosition();
+
+        chessMatch.ExecuteMove(origin, destination);
+    }
+
 }
 catch (BoardException e)
 {
     Console.WriteLine(e.Message);
 }
-
-//PositionChess pos = new PositionChess('c', 7);
-
-//Console.WriteLine(pos);
-
-//Console.WriteLine(pos.toPosition());
