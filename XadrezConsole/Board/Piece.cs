@@ -1,6 +1,6 @@
 ﻿namespace XadrezConsole.board
 {
-    internal class Piece
+    abstract internal class Piece
     {
         public Position position { get; set; }
         public Color color { get; protected set; }
@@ -19,5 +19,8 @@
         {
             moveCount++;
         }
+
+        public abstract bool[,] PossibleMoves();
+
     }
 }
