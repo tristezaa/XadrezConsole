@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using XadrezConsole.board;
+﻿using XadrezConsole.board;
 
 namespace XadrezConsole.chess
 {

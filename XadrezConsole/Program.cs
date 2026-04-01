@@ -1,7 +1,6 @@
-﻿using XadrezConsole.board;
-using XadrezConsole;
+﻿using XadrezConsole;
+using XadrezConsole.board;
 using XadrezConsole.chess;
-using System.Xml;
 try
 {
     ChessMatch chessMatch = new ChessMatch();
@@ -11,10 +10,7 @@ try
         try
         {
             Console.Clear();
-            Screen.PrintBoard(chessMatch.board);
-            Console.WriteLine();
-            Console.WriteLine("Turn: " + chessMatch.turn);
-            Console.WriteLine($"{chessMatch.currentPlayer}'s turn.");
+            Screen.PrintMatch(chessMatch);
 
             Console.WriteLine();
             Console.Write("Enter the origin position: ");
