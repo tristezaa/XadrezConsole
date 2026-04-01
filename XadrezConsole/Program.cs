@@ -36,6 +36,8 @@ try
         }
 
     }
+    Console.Clear();
+    Screen.PrintMatch(chessMatch);
 }
 
 catch (BoardException e)

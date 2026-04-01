@@ -52,9 +52,9 @@ namespace XadrezConsole.chess
         {
             Piece capturedPiece = ExecuteMove(origin, destination);
             if (IsInCheck(currentPlayer))
-                {
-                    UndoMove(origin, destination, capturedPiece);
-                    throw new BoardException("You can't put yourself in check.");
+            {
+                UndoMove(origin, destination, capturedPiece);
+                throw new BoardException("You can't put yourself in check.");
             }
             if (IsInCheck(Opponent(currentPlayer)))
             {
@@ -63,6 +63,10 @@ namespace XadrezConsole.chess
             else
             {
                 Check = false;
+            }
+            if (IsCheckmate(Opponent(currentPlayer)))
+            {
+                finished = true;
             }
 
             turn++;
@@ -173,7 +177,38 @@ namespace XadrezConsole.chess
                 }
             }
             return false;
-        } 
+        }
+
+        public bool IsCheckmate(Color color)
+        {
+            if (!IsInCheck(color))
+            {
+                return false;
+            }
+            foreach (Piece x in PiecesInGame(color))
+            {
+                bool[,] mat = x.PossibleMoves();
+                for (int i = 0; i < board.lines; i++)
+                {
+                    for (int j = 0; j < board.columns; j++)
+                    {
+                        if (mat[i, j])
+                        {
+                            Position origin = x.position;
+                            Position destination = new Position(i, j);
+                            Piece capturedPiece = ExecuteMove(origin, destination);
+                            bool checkTest = IsInCheck(color);
+                            UndoMove(origin, destination, capturedPiece);
+                            if (!checkTest)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
+        }
 
         public void PlaceNewPiece(char column, int line, Piece piece)
         {
