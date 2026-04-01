@@ -12,6 +12,12 @@ try
 
         Console.Write("Enter the origin position: ");
         Position origin = Screen.ReadChessPosition().ToPosition();
+
+        bool[,] possibleMoves = chessMatch.board.Piece(origin).PossibleMoves();
+
+        Console.Clear();
+        Screen.PrintBoard(chessMatch.board, possibleMoves);
+
         Console.Write("Enter the destination position: ");
         Position destination = Screen.ReadChessPosition().ToPosition();
 
