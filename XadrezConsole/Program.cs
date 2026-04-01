@@ -1,30 +1,47 @@
 ﻿using XadrezConsole.board;
 using XadrezConsole;
 using XadrezConsole.chess;
+using System.Xml;
 try
 {
     ChessMatch chessMatch = new ChessMatch();
 
     while (!chessMatch.finished)
     {
-        Console.Clear();
-        Screen.PrintBoard(chessMatch.board);
+        try
+        {
+            Console.Clear();
+            Screen.PrintBoard(chessMatch.board);
+            Console.WriteLine();
+            Console.WriteLine("Turn: " + chessMatch.turn);
+            Console.WriteLine($"{chessMatch.currentPlayer}'s turn.");
 
-        Console.Write("Enter the origin position: ");
-        Position origin = Screen.ReadChessPosition().ToPosition();
+            Console.WriteLine();
+            Console.Write("Enter the origin position: ");
+            Position origin = Screen.ReadChessPosition().ToPosition();
+            chessMatch.ValidateOriginPosition(origin);
 
-        bool[,] possibleMoves = chessMatch.board.Piece(origin).PossibleMoves();
+            bool[,] possibleMoves = chessMatch.board.Piece(origin).PossibleMoves();
 
-        Console.Clear();
-        Screen.PrintBoard(chessMatch.board, possibleMoves);
+            Console.Clear();
+            Screen.PrintBoard(chessMatch.board, possibleMoves);
 
-        Console.Write("Enter the destination position: ");
-        Position destination = Screen.ReadChessPosition().ToPosition();
+            Console.Write("Enter the destination position: ");
+            Position destination = Screen.ReadChessPosition().ToPosition();
+            chessMatch.ValidateDestinationPosition(origin, destination);
 
-        chessMatch.ExecuteMove(origin, destination);
+            chessMatch.MakeMove(origin, destination);
+        }
+        catch (BoardException e)
+        {
+            Console.WriteLine(e.Message);
+            Console.WriteLine("Press Enter to continue...");
+            Console.ReadLine();
+        }
+
     }
-
 }
+
 catch (BoardException e)
 {
     Console.WriteLine(e.Message);
