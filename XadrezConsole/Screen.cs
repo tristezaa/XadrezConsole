@@ -15,7 +15,7 @@ namespace XadrezConsole
             if (!match.finished)
             {
                 Console.WriteLine("Waiting player: " + match.currentPlayer);
-                if (match.Check)
+                if (match.check)
                 {
                     Console.WriteLine("CHECK!");
                 }

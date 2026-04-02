@@ -10,7 +10,7 @@ namespace XadrezConsole.chess
         public bool finished { get; private set; }
         private HashSet<Piece> pieces;
         private HashSet<Piece> captured;
-        public bool Check { get; private set; }
+        public bool check { get; private set; }
 
         public ChessMatch()
         {
@@ -33,6 +33,24 @@ namespace XadrezConsole.chess
             {
                 captured.Add(capturedPiece);
             }
+            //Castling kingside
+            if (p is King && destination.column == origin.column + 2)
+            {
+                Position originR = new Position(origin.line, origin.column + 3);
+                Position destinationR = new Position(origin.line, origin.column + 1);
+                Piece R = board.RemovePiece(originR);
+                R.IncrementMoveCount();
+                board.PlacePiece(R, destinationR);
+            }
+            //Castling queenside
+            if (p is King && destination.column == origin.column - 2)
+            {
+                Position originR = new Position(origin.line, origin.column - 4);
+                Position destinationR = new Position(origin.line, origin.column - 1);
+                Piece R = board.RemovePiece(originR);
+                R.IncrementMoveCount();
+                board.PlacePiece(R, destinationR);
+            }
             return capturedPiece;
         }
 
@@ -46,6 +64,25 @@ namespace XadrezConsole.chess
                 captured.Remove(capturedPiece);
             }
             board.PlacePiece(p, origin);
+
+            //Castling kingside
+            if (p is King && destination.column == origin.column + 2)
+            {
+                Position originR = new Position(origin.line, origin.column + 3);
+                Position destinationR = new Position(origin.line, origin.column + 1);
+                Piece R = board.RemovePiece(destinationR);
+                R.DecrementMoveCount();
+                board.PlacePiece(R, originR);
+            }
+            //Castling queenside
+            if (p is King && destination.column == origin.column - 2)
+            {
+                Position originR = new Position(origin.line, origin.column - 4);
+                Position destinationR = new Position(origin.line, origin.column - 1);
+                Piece R = board.RemovePiece(destinationR);
+                R.DecrementMoveCount();
+                board.PlacePiece(R, originR);
+            }
         }
 
         public void MakeMove(Position origin, Position destination)
@@ -58,11 +95,11 @@ namespace XadrezConsole.chess
             }
             if (IsInCheck(Opponent(currentPlayer)))
             {
-                Check = true;
+                check = true;
             }
             else
             {
-                Check = false;
+                check = false;
             }
             if (IsCheckmate(Opponent(currentPlayer)))
             {
@@ -223,7 +260,7 @@ namespace XadrezConsole.chess
             PlaceNewPiece('b', 1, new Knight(board, Color.White));
             PlaceNewPiece('c', 1, new Bishop(board, Color.White));
             PlaceNewPiece('d', 1, new Queen(board, Color.White));
-            PlaceNewPiece('e', 1, new King(board, Color.White));
+            PlaceNewPiece('e', 1, new King(board, Color.White, this));
             PlaceNewPiece('f', 1, new Bishop(board, Color.White));
             PlaceNewPiece('g', 1, new Knight(board, Color.White));
             PlaceNewPiece('h', 1, new Rook(board, Color.White));
@@ -242,7 +279,7 @@ namespace XadrezConsole.chess
             PlaceNewPiece('b', 8, new Knight(board, Color.Black));
             PlaceNewPiece('c', 8, new Bishop(board, Color.Black));
             PlaceNewPiece('d', 8, new Queen(board, Color.Black));
-            PlaceNewPiece('e', 8, new King(board, Color.Black));
+            PlaceNewPiece('e', 8, new King(board, Color.Black, this));
             PlaceNewPiece('f', 8, new Bishop(board, Color.Black));
             PlaceNewPiece('g', 8, new Knight(board, Color.Black));
             PlaceNewPiece('h', 8, new Rook(board, Color.Black));
