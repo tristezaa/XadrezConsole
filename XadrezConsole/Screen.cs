@@ -54,14 +54,20 @@ namespace XadrezConsole
         {
             for (int i = 0; i < board.lines; i++)
             {
+                ConsoleColor aux = Console.ForegroundColor;
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write(8 - i + " ");
+                Console.ForegroundColor = aux;
                 for (int j = 0; j < board.columns; j++)
                 {
                     PrintPiece(board.Piece(i, j));
                 }
                 Console.WriteLine();
             }
+            ConsoleColor auxBottom = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("  a b c d e f g h");
+            Console.ForegroundColor = auxBottom;
         }
 
         public static void PrintBoard(Board board, bool[,] possibleMoves)
@@ -71,7 +77,10 @@ namespace XadrezConsole
 
             for (int i = 0; i < board.lines; i++)
             {
+                ConsoleColor aux = Console.ForegroundColor;
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write(8 - i + " ");
+                Console.ForegroundColor = aux;
                 for (int j = 0; j < board.columns; j++)
                 {
                     if (possibleMoves[i, j])
@@ -88,7 +97,10 @@ namespace XadrezConsole
                 }
                 Console.WriteLine();
             }
+            ConsoleColor auxBottom = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("  a b c d e f g h");
+            Console.ForegroundColor = auxBottom;
             Console.BackgroundColor = originalBackground;
         }
 
